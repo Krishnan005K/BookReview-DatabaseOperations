@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.krishnan.bookreview.model.User;
-import com.krishnan.bookreview.services.UpdateRequest;
 import com.krishnan.bookreview.services.UserService;
 
 import io.micrometer.common.lang.NonNull;
@@ -26,7 +25,7 @@ import io.micrometer.common.lang.NonNull;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @PostMapping ("/createUser")
     public ResponseEntity <User> add(@NonNull @RequestBody User user) {
@@ -35,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping("readUser/{email}")
-    public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
         Optional<User> user = userService.getUserByEmail(email);
         return user.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -48,14 +47,14 @@ public class UserController {
     }
 
     @PutMapping("updateUser/{email}")
-    public ResponseEntity<User> updateUser(@NonNull @PathVariable  String email,@RequestBody User user)
+    public ResponseEntity<User> updateUser(@PathVariable String email,@RequestBody User user)
     {
-        if(userService.updateDetails(email,user)==true)
+        if(userService.updateDetails(email,user))
         {
             return new ResponseEntity<>(user,HttpStatus.OK);
         }
         
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("deleteUser/{userId}")
@@ -64,4 +63,3 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
-

@@ -22,17 +22,20 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name="user_data")
-public class User {    
+@Table(name="book_data")
+public class Book {
     
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
-    private String name;
-    private String email;
-    private String password;
-    private String mobile;
-    @OneToMany(mappedBy = "user")
+    private int bookId;
+    private String bookName;
+    private String genre;
+    private String launchYear;
+    private String author;
+
+    @OneToMany(mappedBy = "book")
     private List<Review> reviews;
+
 
 }
