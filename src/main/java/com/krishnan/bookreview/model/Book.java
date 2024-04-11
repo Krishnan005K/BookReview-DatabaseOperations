@@ -2,6 +2,8 @@ package com.krishnan.bookreview.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,12 +30,13 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int bookId;
+    private Long bookId;
     private String bookName;
     private String genre;
     private String launchYear;
     private String author;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "book")
     private List<Review> reviews;
 
