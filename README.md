@@ -13,7 +13,7 @@ Swagger
 
 JPQL
 
-MySQL (or your database of choice)
+MySQL
 
 
 # Features
