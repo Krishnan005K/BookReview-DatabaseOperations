@@ -13,6 +13,7 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI defineApi()
     {
+        //new swagger configuration
         Server server = new Server();
         server.setUrl("http://localhost:8080");
         server.setDescription("Book Review Application");
